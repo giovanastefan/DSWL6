@@ -10,29 +10,35 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/addComentario") // URL do servlet
+@WebServlet("/addNome") 
 public class Exercicio05 extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    private ArrayList<String> comentarios = new ArrayList<>();
+    private ArrayList<String> nomes = new ArrayList<>();
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
-        String comentario = request.getParameter("comentario");
-
-        if (comentario != null && !comentario.isEmpty()) {
-            comentarios.add(comentario);
+     
+        String nome = request.getParameter("nome");
+        
+        if (nome != null && !nome.isEmpty()) {
+            nomes.add(nome);
         }
-
+        
         response.setContentType("text/html;charset=UTF-8");
         
         PrintWriter out = response.getWriter();
-        out.println("<h1>Comentários:</h1>");
+        out.println("<h1>Nomes Armazenados:</h1>");
         out.println("<ul>");
-        for (String c : comentarios) {
-            out.println("<li>" + c + "</li>");
+        for (String n : nomes) {
+            out.println("<li>" + n + "</li>");
         }
         out.println("</ul>");
+
+        out.println("<form action='addNome' method='GET'>");
+        out.println("Nome: <input type='text' name='nome' required>");
+        out.println("<button type='submit'>Adicionar</button>");
+        out.println("</form>");
     }
 }
